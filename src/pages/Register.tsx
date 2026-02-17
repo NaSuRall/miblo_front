@@ -35,7 +35,7 @@ export default function LoginPage(){
                     <div className="">
                         <h2 className="text-2xl font-Lemon">Inscription</h2>
                     </div>
-                    <div className="w-full max-w-sm bg-white p-6 rounded-sm">
+                    <div className="w-full max-w-sm bg-white p-6 rounded-sm space-y-3">
                         <form className="space-y-4" onSubmit={handleSubmit}>
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">Nom :</label>
@@ -87,13 +87,11 @@ export default function LoginPage(){
                         >
                             S"inscrire
                         </button>
-                        <button
-                            type="submit"
-                            className="text-noir border-b-2 border-rose hover:bg-jaune p-2 text-sm"
-                        >
-                           Vous avez deja un compte ?
-                        </button>
                         </form>
+
+                        <Link className="text-noir border-b-2 border-rose hover:bg-jaune p-2  text-sm" to="/login">
+                            Vous avez deja un compte ?
+                        </Link>
                     </div>
                 </div>
 

@@ -1,10 +1,24 @@
 import { Link } from "react-router-dom";
-
-
-
+import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 import { useSendLogin } from "../hooks/useSendLogin";
 
 export default function LoginPage(){
+
+    // Vérifier si l'utilisateur est deja connecter
+    const navigate = useNavigate();
+    useEffect(() => {
+        const token = localStorage.getItem("token");
+
+        if (token) {
+            toast.success("Vous êtes déjà connecté", { id: "already-logged" });
+            navigate("/");
+
+        }
+    }, []);
+
+
 
     const sendLogin = useSendLogin();
     const handleSubmitLogin = (e: React.FormEvent<HTMLFormElement>) => {
@@ -35,46 +49,44 @@ export default function LoginPage(){
                     <div className="">
                         <h2 className="text-2xl font-Lemon">Connexion</h2>
                     </div>
-                    <div className="w-full max-w-sm bg-white p-6 rounded-sm">
+                    <div className="w-full max-w-sm bg-white p-6 rounded-sm space-y-5">
                         <form className="space-y-4" onSubmit={handleSubmitLogin}>
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Email
-                            </label>
-                            <input
-                            type="email"
-                            name="email"
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="ex: contact@miblo.fr"
-                            />
-                        </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Email
+                                </label>
+                                <input
+                                type="email"
+                                name="email"
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="ex: contact@miblo.fr"
+                                />
+                            </div>
 
-                        <div>
-                            <label className="block text-sm font-medium text-gray-700 mb-1">
-                            Mot de passe
-                            </label>
-                            <input
-                            type="password"
-                            name="password"
-                            className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                            placeholder="••••••••"
-                            />
-                        </div>
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">
+                                Mot de passe
+                                </label>
+                                <input
+                                type="password"
+                                name="password"
+                                className="w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                placeholder="••••••••"
+                                />
+                            </div>
 
-                        <button
-                            type="submit"
-                            className="w-full transition-colors duration-800 ease-in-out bg-gradient-to-r from-jaune to-rose text-boir font-Lemon py-2 rounded-md
-                             hover:from-rose hover:to-jaune  hover:cursor-pointer"
-                        >
-                            Se connecter
-                        </button>
-                        <button
-                            type="submit"
-                            className="text-noir border-b-2 border-rose hover:bg-jaune p-2 text-sm"
-                        >
-                            Pas encore de compte ?
-                        </button>
+                            <button
+                                type="submit"
+                                className="w-full transition-colors duration-800 ease-in-out bg-gradient-to-r from-jaune to-rose text-boir font-Lemon py-2 rounded-md
+                                hover:from-rose hover:to-jaune  hover:cursor-pointer"
+                            >
+                                Se connecter
+                            </button>
+
                         </form>
+                        <Link className="text-noir border-b-2 border-rose hover:bg-jaune p-2  text-sm" to="/register">
+                            Pas encore de compte ?
+                        </Link>
                     </div>
                 </div>
 

@@ -1,8 +1,13 @@
 import { Link } from "react-router-dom";
+import { AuthContext } from "../context/AuthContext";
+import { useContext } from "react";
+import { LogOut }  from 'lucide-react';
 
 
 export default function Navbar() {
+    const { user, token, logout } = useContext(AuthContext);
     return (
+
         <div className="fixed left-0 top-0 w-1/5 h-screen border-r-2 border-r-gris flex flex-col justify-between bg-white">
             <div>
                 <div className="flex flex-row items-center justify-start h-20 border-b-2 border-b-gris p-4">
@@ -48,10 +53,20 @@ export default function Navbar() {
                 </div>
             </div>
 
-            <div className="flex flex-row w-full">
-                <Link className="flex items-center justify-center p-2 rounded-sm bg-jaune text-noir font-Lemon text-sm w-1/2" to="/login">Connexion</Link>
-                <Link className="flex items-center justify-center p-2 rounded-sm bg-rose text-noir font-Lemon text-sm w-1/2" to="/register">Inscription</Link>
-            </div>
+            {token ? (
+                <div className="flex flex-row w-full justify-between p-2 items-center bg-gray-200">
+                    <h2 className="">{user.first_name}</h2>
+                    <button onClick={logout} className="p-2 bg-red-200 rounded-sm text-red-500"> <LogOut size={15} /></button>
+                </div>
+            ) : (
+                <div>
+                    <div className="flex flex-row w-full">
+                        <Link className="flex items-center justify-center p-2 rounded-sm bg-jaune text-noir font-Lemon text-sm w-1/2" to="/login">Connexion</Link>
+                        <Link className="flex items-center justify-center p-2 rounded-sm bg-rose text-noir font-Lemon text-sm w-1/2" to="/register">Inscription</Link>
+                    </div>
+                </div>
+            )}
+
         </div>
     );
 }
